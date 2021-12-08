@@ -1,11 +1,9 @@
 import Head from 'next/head';
 
-import { FormContainer } from '@/containers/FormContainer';
+import { Container, Content } from '@/containers/MainContainer/style';
 
 import { PrimaryButton } from '@/components/PrimaryButton';
 import { TextInput } from '@/components/TextInput';
-
-import { Container } from './style';
 
 export default function LandingPage() {
   return (
@@ -14,10 +12,11 @@ export default function LandingPage() {
         <title>Landing Page</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <FormContainer headline="Tell us your name!">
+      <Content>
+        <h3>Tell us your name!</h3>
         <TextInput name="username" label="It has to be unique, like you..." />
         <PrimaryButton> Hop in! </PrimaryButton>
-      </FormContainer>
+      </Content>
     </Container>
   );
 }
