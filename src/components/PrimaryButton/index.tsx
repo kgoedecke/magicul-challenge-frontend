@@ -9,18 +9,18 @@ interface IPrimaryButton {
 type IProps = IPrimaryButton;
 
 const StyledButton = styled.button`
-  position: absolute;
-  background-color: #d8d8d8;
+  position: relative;
+  background-color: #ca60eb;
   border: 1px solid #ebe9e9;
   padding: 15px;
   margin-top: 200px;
-  color: #2d0d85;
+  color: #f7f7f7;
 
   border-radius: 12px;
 
   &:hover {
     content: '';
-    background: #ebe9e9;
+    background: #cd75e7;
   }
 `;
 

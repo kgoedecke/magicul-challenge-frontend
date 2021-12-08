@@ -19,7 +19,7 @@ export const InputField = styled.input`
   font: 25px Archivo;
 
   border-radius: 12px;
-  border: 1px solid #e6e6f0;
+  border: 1px solid #916bea;
 
   background: #f8f8fc;
   outline: 0;
