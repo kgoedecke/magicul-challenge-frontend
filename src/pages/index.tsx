@@ -1,11 +1,25 @@
-import Head from 'next/head';
+import Head from 'next/head'
+import { FormEvent, useState } from 'react'
 
-import { Container, Content } from '@/containers/MainContainer/style';
+import { useAuth } from '@/context/auth'
 
-import { PrimaryButton } from '@/components/PrimaryButton';
-import { TextInput } from '@/components/TextInput';
+import { PrimaryButton } from '@/components/PrimaryButton'
+import { TextInput } from '@/components/TextInput'
+
+import { Container, Content } from '@/containers/MainContainer/style'
+import { LoginForm } from './style'
 
 export default function LandingPage() {
+  const { logIn } = useAuth()
+  const [name, setName] = useState(``)
+
+  async function handleLogin(e: FormEvent) {
+    e.preventDefault()
+    const data = { name }
+
+    await logIn(data)
+  }
+
   return (
     <Container>
       <Head>
@@ -13,10 +27,17 @@ export default function LandingPage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Content>
-        <h3>Tell us your name!</h3>
-        <TextInput name="username" label="It has to be unique, like you..." />
-        <PrimaryButton> Hop in! </PrimaryButton>
+        <LoginForm onSubmit={handleLogin}>
+          <h3>Tell us your name!</h3>
+          <TextInput
+            name="name"
+            label="It has to be unique, like you..."
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <PrimaryButton type="submit"> Hop in! </PrimaryButton>
+        </LoginForm>
       </Content>
     </Container>
-  );
+  )
 }

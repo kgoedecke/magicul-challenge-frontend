@@ -1,5 +1,13 @@
-import { AppProps } from 'next/app';
+import { AuthProvider } from '@/context/auth'
+import { FileProvider } from '@/context/files'
+import { AppProps } from 'next/app'
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <AuthProvider>
+      <FileProvider>
+        <Component {...pageProps} />
+      </FileProvider>
+    </AuthProvider>
+  )
 }
