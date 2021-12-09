@@ -9,11 +9,11 @@ This part of the challenge consist of the frontend application served by the [AP
 
 
 # Catalogue
-  [About the challenge](#about-the-challenge)
-  [About the techies](#about-the-techies)
-  [Project Gitflow](#the-project-gitflow)
-  [How to set up](#how-to-set-up)
-  [Final Conclusion](#final-conclusion)
+  - [About the challenge](#about-the-challenge)
+  - [About the techies](#about-the-techies)
+  - [Project Gitflow](#the-project-gitflow)
+  - [How to set up](#how-to-set-up)
+  - [Final Conclusion](#final-conclusion)
 
 # About the challenge
 
