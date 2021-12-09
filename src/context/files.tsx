@@ -22,6 +22,7 @@ interface IFileContextData {
   deleteFile(id: number): void
   handleUpload(file: any, userId: number): void
   loadUserFiles(userId: number): void
+  processUpload(file: IFile): void
 }
 
 const FileContext = createContext<IFileContextData>({} as IFileContextData)
@@ -30,33 +31,36 @@ const FileProvider: React.FC = ({ children }) => {
   const [uploadedFiles, setUploadedFiles] = useState<IFile[]>([])
   const { user } = useAuth()
 
-  const loadUserFiles = useCallback((userId: number) => {
-    api
-      .get<IFile[]>(Endpoints.GET_FILES, {
-        params: {
-          user_id: userId,
-        },
-      })
-      .then((response) => {
-        const fileFormatted: IFile[] = response.data.map((file) => ({
-          ...file,
-          id: file.id,
-          size: file.size,
-          filename: file.filename,
-          mimeType: file.mimeType,
-          error: false,
-          uploaded: true,
-        }))
-
-        console.log(response.data)
-
-        setUploadedFiles(fileFormatted)
-      })
-  }, [])
-
   const updateFile = useCallback((id, data) => {
     setUploadedFiles((state) => state.map((file) => (file.id === id ? { ...file, ...data } : file)))
   }, [])
+
+  const loadUserFiles = useCallback(
+    (userId: number) => {
+      api
+        .get<IFile[]>(Endpoints.GET_FILES, {
+          params: {
+            user_id: userId,
+          },
+        })
+        .then((response) => {
+          const fileFormatted: IFile[] = response.data.map((file) => ({
+            ...file,
+            id: file.id,
+            size: file.size,
+            filename: file.filename,
+            mimeType: file.mimeType,
+            error: false,
+            uploaded: true,
+          }))
+
+          console.log(response.data)
+
+          setUploadedFiles(fileFormatted)
+        })
+    },
+    [updateFile],
+  )
 
   const processUpload = useCallback(
     (uploadedFile: IFile) => {
@@ -98,7 +102,7 @@ const FileProvider: React.FC = ({ children }) => {
   )
 
   const handleUpload = useCallback(
-    (files: File[], userId: number) => {
+    async (files: File[], userId: number) => {
       const newUploadedFiles: IFile[] = files.map((file: File) => ({
         file,
         userId,
@@ -116,17 +120,20 @@ const FileProvider: React.FC = ({ children }) => {
     [processUpload],
   )
 
-  const deleteFile = useCallback((id: number) => {
-    api.delete(Endpoints.DELETE_FILE, {
-      params: {
-        fileId: id,
-      },
-    })
-    setUploadedFiles((state) => state.filter((file) => file.id !== id))
-  }, [])
+  const deleteFile = useCallback(
+    (id: number) => {
+      api.delete(Endpoints.DELETE_FILE, {
+        params: {
+          fileId: id,
+        },
+      })
+      setUploadedFiles((state) => state.filter((file) => file.id !== id))
+    },
+    [updateFile],
+  )
 
   return (
-    <FileContext.Provider value={{ uploadedFiles, deleteFile, handleUpload, loadUserFiles }}>
+    <FileContext.Provider value={{ uploadedFiles, deleteFile, handleUpload, loadUserFiles, processUpload }}>
       {children}
     </FileContext.Provider>
   )

@@ -1,12 +1,22 @@
-import React from 'react'
+import fileSize from 'filesize'
+import React, { useEffect } from 'react'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import { MdCheckCircle, MdError, MdMoodBad } from 'react-icons/md'
-import { useFiles, IFile } from '../../context/files'
+
+import { useFiles, IFile } from '@/context/files'
+import { useAuth } from '@/context/auth'
 
 import { Container, FileInfo } from './style'
 
-const Table = () => {
-  const { uploadedFiles: files, deleteFile } = useFiles()
+export const Table = () => {
+  const { uploadedFiles: files, deleteFile, loadUserFiles } = useFiles()
+  const { user } = useAuth()
+
+  useEffect(() => {
+    if (user) {
+      loadUserFiles(user.id)
+    }
+  }, [])
 
   if (files && !files.length)
     return (
@@ -20,17 +30,20 @@ const Table = () => {
       {files.map((uploadedFile: IFile) => (
         <li key={uploadedFile.id}>
           <FileInfo>
-            <div>
-              <strong>{uploadedFile.filename}</strong>
-              <span>
-                {uploadedFile.size}
-                {` `}
-                {!!uploadedFile.mimeType && (
-                  // eslint-disable-next-line react/button-has-type
-                  <button onClick={() => deleteFile(uploadedFile.id as number)}>Delete</button>
-                )}
-              </span>
-            </div>
+            {uploadedFile && uploadedFile.id && (
+              <div>
+                <strong>{uploadedFile.filename}</strong>
+                <span>
+                  {fileSize(parseInt(uploadedFile.size, 10))}
+                  {` `}
+                  {!!uploadedFile.id && (
+                    <button type="button" onClick={() => deleteFile(uploadedFile.id as number)}>
+                      Delete
+                    </button>
+                  )}
+                </span>
+              </div>
+            )}
           </FileInfo>
 
           <div>
@@ -54,5 +67,3 @@ const Table = () => {
     </Container>
   )
 }
-
-export default Table

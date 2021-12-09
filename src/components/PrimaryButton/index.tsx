@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface IPrimaryButton {
-  type: string
+  type?: string
 }
 
 type IProps = IPrimaryButton

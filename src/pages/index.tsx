@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { FormEvent, useState } from 'react'
+import { toast } from 'react-toastify'
 
 import { useAuth } from '@/context/auth'
 
@@ -18,6 +19,7 @@ export default function LandingPage() {
     const data = { name }
 
     await logIn(data)
+    toast.success(`You've logged in successfully,  ${name}`)
   }
 
   return (
