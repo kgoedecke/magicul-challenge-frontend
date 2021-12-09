@@ -19,9 +19,15 @@
     "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write"
   },
   "dependencies": {
+    "axios": "0.24.0",
+    "filesize": "8.0.6",
     "next": "10.0.6",
+    "nookies": "2.5.2",
     "react": "17.0.1",
+    "react-circular-progressbar": "2.0.4",
     "react-dom": "17.0.1",
+    "react-dropzone": "11.4.2",
+    "react-icons": "4.3.1",
     "styled-components": "5.3.0"
   },
   "devDependencies": {

@@ -3,4 +3,4 @@ export const Endpoints = {
   GET_FILES: `/file/list`,
   UPLOAD_FILE: `/file/upload/`,
   DELETE_FILE: `/file/delete/`,
-};
+}
