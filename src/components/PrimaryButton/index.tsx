@@ -1,12 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface IPrimaryButton {
-  // Props
+  type: string
 }
 
-type IProps = IPrimaryButton;
+type IProps = IPrimaryButton
 
 const StyledButton = styled.button`
   position: relative;
@@ -22,8 +22,6 @@ const StyledButton = styled.button`
     content: '';
     background: #cd75e7;
   }
-`;
+`
 
-export const PrimaryButton: React.FC<IProps> = ({ children }) => (
-  <StyledButton>{children}</StyledButton>
-);
+export const PrimaryButton: React.FC<IProps> = ({ children }) => <StyledButton>{children}</StyledButton>
