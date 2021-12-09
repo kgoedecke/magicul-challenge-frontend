@@ -1,9 +1,8 @@
 import { createContext, ReactNode, useContext, useState } from 'react'
 import Router from 'next/router'
-import { destroyCookie, setCookie } from 'nookies'
+import { destroyCookie } from 'nookies'
 
 import { api, Endpoints } from '@/services/api/index'
-import { useFiles } from './files'
 
 export type User = {
   id: number
