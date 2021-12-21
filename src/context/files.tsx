@@ -55,8 +55,6 @@ const FileProvider: React.FC = ({ children }) => {
             uploaded: true,
           }))
 
-          console.log(response.data)
-
           setUploadedFiles(fileFormatted)
         })
     },
@@ -75,8 +73,6 @@ const FileProvider: React.FC = ({ children }) => {
         .post(Endpoints.UPLOAD_FILE, data, {
           onUploadProgress: (progressEvent) => {
             const progress: number = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-
-            console.log(`The file ${uploadedFile.filename} is ${progress}% processed... `)
 
             updateFile(uploadedFile.id, { progress })
           },
