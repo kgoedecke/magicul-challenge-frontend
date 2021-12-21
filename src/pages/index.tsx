@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import { FormEvent, useState } from 'react'
-import { toast } from 'react-toastify'
 
 import { useAuth } from '@/context/auth'
 
@@ -14,12 +13,11 @@ export default function LandingPage() {
   const { logIn } = useAuth()
   const [name, setName] = useState(``)
 
-  async function handleLogin(e: FormEvent) {
+  function handleLogin(e: FormEvent) {
     e.preventDefault()
     const data = { name }
 
-    await logIn(data)
-    toast.success(`You've logged in successfully,  ${name}`)
+    logIn(data)
   }
 
   return (
@@ -37,7 +35,9 @@ export default function LandingPage() {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <PrimaryButton type="submit"> Hop in! </PrimaryButton>
+          <PrimaryButton style={{ bottom: 102, right: 50 }} type="submit">
+            Login
+          </PrimaryButton>
         </LoginForm>
       </Content>
     </Container>

@@ -1,15 +1,15 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const InputContainer = styled.div`
   position: relative;
-  margin-top: 22px;
+  margin-top: 70px;
 
   > label {
     font-size: 18px;
     position: absolute;
     margin-bottom: 50px;
   }
-`;
+`
 
 export const InputField = styled.input`
   width: 300px;
@@ -31,4 +31,4 @@ export const InputField = styled.input`
     right: 25px;
     bottom: 0;
   }
-`;
+`

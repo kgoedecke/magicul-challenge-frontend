@@ -1,8 +1,6 @@
-/* eslint-disable no-console */
 import React, { useCallback, useEffect } from 'react'
 import Head from 'next/head'
 import { useDropzone } from 'react-dropzone'
-import { toast } from 'react-toastify'
 
 import { useFiles } from '@/context/files'
 import { useAuth } from '@/context/auth'
@@ -16,7 +14,7 @@ import { DropContainer, UploadMessage } from './style'
 
 export default function Upload() {
   const { handleUpload, loadUserFiles } = useFiles()
-  const { user } = useAuth()
+  const { user, logOut } = useAuth()
 
   useEffect(() => {
     if (user) loadUserFiles(user.id)
@@ -29,11 +27,10 @@ export default function Upload() {
   }
 
   const onDrop = useCallback(
-    async (files) => {
+    async (file) => {
       if (user) {
-        await handleUpload(files, user.id)
+        handleUpload(file, user.id)
         fetchUserFiles()
-        toast.success(`File uploaded Successfuly, ${user.name}`)
       }
     },
     [handleUpload],
@@ -53,13 +50,15 @@ export default function Upload() {
 
   return (
     <>
-      <PrimaryButton>Logout</PrimaryButton>
       <Container>
         <Head>
           <title>Magicul Challenge</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Content>
+          <PrimaryButton style={{ top: 10, right: 10 }} onClick={logOut}>
+            Logout
+          </PrimaryButton>
           <DropContainer {...getRootProps()}>
             <input {...getInputProps()} />
             {renderDragMessage()}

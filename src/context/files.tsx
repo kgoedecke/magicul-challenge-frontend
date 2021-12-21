@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import React, { createContext, useState, useCallback, useContext } from 'react'
+
 import filesize from 'filesize'
 
 import { api, Endpoints } from '@/services/api/index'
@@ -81,8 +82,6 @@ const FileProvider: React.FC = ({ children }) => {
           },
         })
         .then((response) => {
-          console.log(`The file ${uploadedFile.filename} was succesfully uploaded!`)
-
           updateFile(uploadedFile.id, {
             uploaded: true,
             id: response.data.id,
@@ -90,7 +89,6 @@ const FileProvider: React.FC = ({ children }) => {
           })
         })
         .catch((err) => {
-          console.error(`There was a problem with uploading the file ${uploadedFile.filename}`)
           console.log(err)
 
           updateFile(uploadedFile.id, {

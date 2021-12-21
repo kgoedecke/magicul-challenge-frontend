@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Container = styled.ul`
   margin-top: 20px;
@@ -11,7 +11,7 @@ export const Container = styled.ul`
       margin-top: 15px;
     }
   }
-`;
+`
 
 export const FileInfo = styled.div`
   display: flex;
@@ -32,10 +32,10 @@ export const FileInfo = styled.div`
       }
     }
   }
-`;
+`
 
 interface PreviewProps {
-  src?: string;
+  src?: string
 }
 
 export const Preview = styled.div<PreviewProps>`
@@ -47,4 +47,4 @@ export const Preview = styled.div<PreviewProps>`
   background-size: cover;
   background-position: 50% 50%;
   margin-right: 10px;
-`;
+`

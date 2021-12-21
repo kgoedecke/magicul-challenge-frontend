@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from 'react'
+import { toast } from 'react-toastify'
 import Router from 'next/router'
-import { destroyCookie } from 'nookies'
 
 import { api, Endpoints } from '@/services/api/index'
 
@@ -17,6 +17,7 @@ type IAuthContextData = {
   user: User | undefined
   isLoggedIn: boolean
   logIn(name: LoginProps): void
+  logOut(): void
 }
 
 interface AuthProviderProps {
@@ -25,21 +26,12 @@ interface AuthProviderProps {
 
 const AuthContext = createContext({} as IAuthContextData)
 
-export function logOut() {
-  destroyCookie(null, `auth.token`)
-  destroyCookie(null, `auth.refreshToken`)
-
-  Router.push(`/`)
-}
-
 const AuthProvider: React.FC = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User>()
   const isLoggedIn = !!user
 
   async function logIn({ name }: LoginProps) {
     try {
-      // eslint-disable-next-line no-console
-      console.log(`Logging in ${name}`)
       const response = await api.post(Endpoints.LOGIN, {
         name,
       })
@@ -50,12 +42,15 @@ const AuthProvider: React.FC = ({ children }: AuthProviderProps) => {
 
       Router.push(`/upload`)
     } catch (err) {
-      // eslint-disable-next-line no-console
-      console.log(err)
+      toast.error(JSON.stringify(err))
     }
   }
 
-  return <AuthContext.Provider value={{ logIn, isLoggedIn, user }}>{children}</AuthContext.Provider>
+  async function logOut() {
+    Router.push(`/`)
+  }
+
+  return <AuthContext.Provider value={{ logIn, isLoggedIn, user, logOut }}>{children}</AuthContext.Provider>
 }
 
 function useAuth(): IAuthContextData {
